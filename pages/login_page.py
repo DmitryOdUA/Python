@@ -23,7 +23,7 @@ class LoginPage(BasePage):
             self.driver.find_element(*self.USERNAME_INPUT).send_keys(username)
             self.driver.find_element(*self.PASSWORD_INPUT).send_keys(password)
             self.driver.find_element(*self.LOGIN_BUTTON).click()
-            WebDriverWait(self.driver, 5, 1, [TimeoutException]) \
+            WebDriverWait(self.driver, 10, 1, [TimeoutException]) \
                 .until(EC.invisibility_of_element(self.LOGIN_BUTTON))
 
     def set_username(self, username: str):

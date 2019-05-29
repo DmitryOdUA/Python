@@ -18,7 +18,7 @@ def get_driver(request):
 def pytest_runtest_makereport(item):
     outcome = yield
     rep = outcome.get_result()
-    if rep.when == "call" and rep.failed:
+    if rep.failed:
         try:
             allure.attach(item.instance.driver.get_screenshot_as_png(),
                           name=item.name,
