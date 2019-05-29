@@ -2,3 +2,4 @@ xmltodict
 pytest
 selenium
 allure-pytest
+webdriver_manager
