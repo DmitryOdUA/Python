@@ -39,6 +39,6 @@ jobs:
           when: always
 
       - store_artifacts:
-          path: ~/Python/allure_results
-          destination: allure_results
+          path: ~/Python/allure_reports
+          destination: allure_reports
           when: always
