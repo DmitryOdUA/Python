@@ -21,6 +21,7 @@ class TestCreateIssue:
         login_page.open()
         login_page.login(const.USERNAME, const.PASSWORD)
 
+    @pytest.mark.skip
     @pytest.mark.webtest
     @allure.title("Create issue test - positive")
     def test_create_issue_positive(self):

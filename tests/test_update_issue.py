@@ -28,6 +28,7 @@ class TestSearchIssue:
         self.search_page = SearchPage(self.driver)
         self.issue_details_page = IssueDetailsPage(self.driver)
 
+    @pytest.mark.skip
     @pytest.mark.webtest
     @allure.title("Update issue summary")
     def test_update_issue_summary(self):
@@ -38,6 +39,7 @@ class TestSearchIssue:
         self.issue_details_page.set_summary(updated_summary)
         assert self.issue_details_page.get_summary() == updated_summary
 
+    @pytest.mark.skip
     @pytest.mark.webtest
     @allure.title("Update issue priority")
     def test_update_issue_priority(self):
@@ -48,6 +50,7 @@ class TestSearchIssue:
         self.issue_details_page.set_priority(updated_priority)
         assert self.issue_details_page.get_priority() == updated_priority
 
+    @pytest.mark.skip
     @pytest.mark.webtest
     @allure.title("Update issue assignee")
     def test_update_issue_assignee(self):

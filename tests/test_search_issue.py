@@ -27,6 +27,7 @@ class TestSearchIssue:
         create_issue_page.wait_until_page_disappear()
         self.search_page = SearchPage(self.driver)
 
+    @pytest.mark.skip
     @pytest.mark.webtest
     @allure.title("Search issue by summary")
     def test_search_issue_positive(self):
@@ -35,6 +36,7 @@ class TestSearchIssue:
         self.search_page.click_search_button()
         assert self.search_page.is_issue_exist(self.issue_summary)
 
+    @pytest.mark.skip
     @pytest.mark.webtest
     @allure.title("Search non existing issue")
     def test_search_issue_negative(self):
