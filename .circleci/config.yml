@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.7.3-stretch-browsers
+      - image: circleci/python:3.7.3-stretch-node-browsers
 
     working_directory: ~/Python
 
@@ -28,9 +28,7 @@ jobs:
           name: Install allure CLI
           command: |
             uname -a
-            sudo apt-add-repository ppa:qameta/allure
-            sudo apt-get update
-            sudo apt-get install allure
+            sudo npm install -g allure-commandline --save-dev
 
       - run:
           name: run tests
