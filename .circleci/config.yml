@@ -35,7 +35,7 @@ jobs:
       - run:
           name: make report
           command:  |
-            allure generate -c /PythonCourse/allure_results_json -o /PythonCourse/allure_results
+            allure generate -c /Python/allure_results_json -o /PythonCourse/allure_results
 
       - store_artifacts:
           path: ~/Python/allure_results
