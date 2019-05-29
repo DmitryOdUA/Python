@@ -14,7 +14,7 @@ jobs:
       - checkout
 
       - run: sudo chown -R circleci:circleci /usr/local/bin
-        
+
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
 
       - run:
@@ -28,7 +28,9 @@ jobs:
           name: Install allure CLI
           command: |
             uname -a
-            sudo npm install -g allure-commandline --save-dev
+            sudo apt-add-repository ppa:qameta/allure
+            sudo apt-get update
+            sudo apt-get install allure
 
       - run:
           name: run tests
