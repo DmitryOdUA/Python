@@ -1,2 +1,4 @@
 xmltodict
 pytest
+selenium
+allure-pytest

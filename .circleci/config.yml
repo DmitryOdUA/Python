@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.7.3-stretch-browsers
 
     working_directory: ~/Python
 
@@ -27,6 +27,12 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
 
+      - run:
+          name: Install allure CLI
+          command: |
+            uname -a
+            sudo npm install -g allure-commandline --save-dev
+
       - save_cache:
           paths:
             - ./venv
@@ -36,8 +42,15 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest
+            pytest --alluredir ~/Python/allure_results_json
+
+      - run:
+          name: make report
+          command:  |
+            allure generate -c /PythonCourse/allure_results_json -o /PythonCourse/allure_results
+          when: always
 
       - store_artifacts:
-          path: test-reports
-          destination: test-reports
+          path: ~/Python/allure_results
+          destination: allure_results
+          when: always
