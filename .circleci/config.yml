@@ -6,19 +6,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.7.3-stretch-node-browsers
 
     working_directory: ~/Python
 
     steps:
       - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
 
       - run:
           name: install dependencies
@@ -27,17 +20,25 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
 
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: Install allure CLI
+          command: |
+            uname -a
+            sudo npm install -g allure-commandline --save-dev
 
       - run:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest
+            python3 -m pytest --alluredir ~/Python/allure_results
+
+      - run:
+          name: make report
+          command:  |
+            allure generate -c ~/Python/allure_results -o ~/Python/allure_reports
+          when: always
 
       - store_artifacts:
-          path: test-reports
-          destination: test-reports
+          path: ~/Python/allure_reports
+          destination: allure_reports
+          when: always
