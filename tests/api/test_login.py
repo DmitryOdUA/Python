@@ -7,6 +7,7 @@ from data import const
 
 class TestLogin:
     JIRA_URL = 'https://jira.hillel.it/rest/auth/1/session'
+    RERUN_PASSWORD_LIST = ["dsfdfd", const.PASSWORD]
 
     @pytest.mark.api
     @pytest.mark.parametrize("login,password,status_code", [(const.USERNAME, const.PASSWORD, 200),
@@ -18,9 +19,18 @@ class TestLogin:
             "username": login,
             "password": password
         }
-        print(auth_data)
         headers = {'Content-Type': 'application/json'}
         request = requests.post(self.JIRA_URL, json=auth_data, headers=headers)
-        print(request.status_code)
         assert request.status_code == status_code
+
+    @pytest.mark.api
+    @allure.title("Login test")
+    def test_login_with_rerun(self):
+        auth_data = {
+            "username": const.USERNAME,
+            "password": self.RERUN_PASSWORD_LIST.pop(0)
+        }
+        headers = {'Content-Type': 'application/json'}
+        request = requests.post(self.JIRA_URL, json=auth_data, headers=headers)
+        assert request.status_code == 200
 
