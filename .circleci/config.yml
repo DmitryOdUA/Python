@@ -30,7 +30,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            python3 -m pytest --alluredir ~/Python/allure_results
+            python3 -m pytest -v -m "api" --alluredir ~/Python/allure_results
 
       - run:
           name: make report
