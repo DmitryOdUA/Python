@@ -16,7 +16,7 @@ class TestCreateIssue:
     issue_id: str = None
 
     @pytest.mark.api
-    @allure.title("Login test")
+    @allure.title("Create issue - positive")
     def test_create_issue_positive(self):
         issue_json = fixtures.get_issue_json(const.PREFIX + str(round(random.random() * 100000)))
         headers = {'Content-Type': 'application/json'}
@@ -29,7 +29,7 @@ class TestCreateIssue:
     @pytest.mark.parametrize("summary,status_code,error_message",
                              [("", 400, EMPTY_SUMMARY_ERROR),
                               (const.PREFIX.join(random.choice(string.ascii_lowercase) for x in range(256)), 400, LONG_SUMMARY_ERROR)])
-    @allure.title("Login test")
+    @allure.title("Create issue - negative")
     def test_create_issue_negative(self, summary, status_code, error_message):
         headers = {'Content-Type': 'application/json'}
         response = requests.post(self.ISSUES_ENDPOINT, json=fixtures.get_issue_json(summary), headers=headers,
