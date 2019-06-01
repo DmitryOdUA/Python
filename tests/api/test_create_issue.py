@@ -28,7 +28,7 @@ class TestCreateIssue:
     @pytest.mark.api
     @pytest.mark.parametrize("summary,status_code,error_message",
                              [("", 400, EMPTY_SUMMARY_ERROR),
-                              (const.PREFIX.join(random.choice(string.ascii_lowercase) for x in range(256)), 400, LONG_SUMMARY_ERROR)])
+                              ("".join(random.choice(string.ascii_lowercase) for x in range(256)), 400, LONG_SUMMARY_ERROR)])
     @allure.title("Create issue - negative")
     def test_create_issue_negative(self, summary, status_code, error_message):
         headers = {'Content-Type': 'application/json'}
