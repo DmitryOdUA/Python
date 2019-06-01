@@ -13,6 +13,10 @@ class TestCreateIssue:
     ISSUES_ENDPOINT = const.JIRA_URL + '/rest/api/2/issue'
     EMPTY_SUMMARY_ERROR = "You must specify a summary of the issue."
     LONG_SUMMARY_ERROR = "Summary must be less than 255 characters."
+    LONG_SUMMARY = "This is very long summary which cannot be randomly generated due to the parallel execution +" \
+                   "This is very long summary which cannot be randomly generated due to the parallel execution +" \
+                   "This is very long summary which cannot be randomly generated due to the parallel execution +" \
+                   "This is very long summary which cannot be randomly generated due to the parallel execution +"
     issue_id: str = None
 
     @pytest.mark.api
@@ -26,9 +30,8 @@ class TestCreateIssue:
         assert 201 == response.status_code
 
     @pytest.mark.api
-    @pytest.mark.parametrize("summary,status_code,error_message",
-                             [("", 400, EMPTY_SUMMARY_ERROR),
-                              ("".join(random.choice(string.ascii_lowercase) for x in range(256)), 400, LONG_SUMMARY_ERROR)])
+    @pytest.mark.parametrize("summary,status_code,error_message", [("", 400, EMPTY_SUMMARY_ERROR),
+                                                                   (LONG_SUMMARY, 400, LONG_SUMMARY_ERROR)])
     @allure.title("Create issue - negative")
     def test_create_issue_negative(self, summary, status_code, error_message):
         headers = {'Content-Type': 'application/json'}
