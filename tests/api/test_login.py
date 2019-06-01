@@ -24,7 +24,7 @@ class TestLogin:
         assert request.status_code == status_code
 
     @pytest.mark.api
-    @allure.title("Login test")
+    @allure.title("Rerun - flaky login test")
     def test_login_with_rerun(self):
         auth_data = {
             "username": const.USERNAME,
