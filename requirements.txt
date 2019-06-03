@@ -1,5 +1,8 @@
+requests
 xmltodict
 pytest
 selenium
 allure-pytest
+pytest-xdist
 webdriver_manager
+pytest-rerunfailures
